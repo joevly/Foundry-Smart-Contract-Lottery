@@ -22,7 +22,7 @@ contract HelperConfig is CodeConstants, Script {
         uint256 entranceFee;
         uint256 interval;
         address vrfCoordinator;
-        bytes32 gasLane;
+        bytes32 gasLane; // key hash
         uint256 subscriptionId;
         uint32 callbackGasLimit; 
     }
@@ -42,6 +42,10 @@ contract HelperConfig is CodeConstants, Script {
         } else {
             revert HelperConfig__InvalidChainId();
         }
+    }
+
+    function getConfig() public returns (NetworkConfig memory) {
+        return getConfigByChainId(block.chainid);
     }
 
     function getSepoliaEthConfig() public pure returns (NetworkConfig memory) {
